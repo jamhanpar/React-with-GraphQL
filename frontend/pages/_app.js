@@ -1,8 +1,10 @@
 import { createGlobalStyle } from 'styled-components';
+import { ApolloProvider } from '@apollo/client';
 
 import NProgress from 'nprogress';
 import Router from 'next/router';
 import Page from '../components/page';
+import withData from '../lib/withData';
 
 // Todo: Swap with our own
 // import 'nprogress/nprogress.css';
@@ -13,7 +15,7 @@ Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
 
 const GlobalStyles = createGlobalStyle`
-    -@font-face {
+    @font-face {
         font-family: 'radnika_next';
         src: url('/static/radnikanext-medium-webfont.woff2') format('woff2');
         font-weight: normal;
@@ -32,6 +34,7 @@ const GlobalStyles = createGlobalStyle`
         --bs: 0 12px 24px 0 rgba(0,0,0,0.09);
 
         box-sizing: border-box;
+        font-size: 10px;
     }
 
     *, *:before, *:after {
@@ -60,11 +63,24 @@ const GlobalStyles = createGlobalStyle`
     }
 `;
 
-export default function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps, apollo }) {
   return (
-    <Page>
-      <GlobalStyles />
-      <Component {...pageProps} />
-    </Page>
+    <ApolloProvider client={apollo}>
+        <Page>
+            <GlobalStyles />
+            <Component {...pageProps} />
+        </Page>
+    </ApolloProvider>
   );
 }
+
+MyApp.getInitialProps = async function({ Component, ctx}) {
+    let pageProps = {};
+    if (Component.getInitialProps) {
+        pageProps = await Component.getInitialProps(ctx);
+    }
+    pageProps.query = ctx.query;
+    return { pageProps };
+}
+
+export default withData(MyApp);
