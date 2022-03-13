@@ -4,10 +4,12 @@
 // alternatively:
 // export { default } from './products';
 
+import Page from '../components/Page';
+
 export default function IndexPage() {
   return (
-    <div>
-      <p>Hello!</p>
-    </div>
+    <Page cool="Heck ya!">
+      <p>Hello</p>
+    </Page>
   );
 }

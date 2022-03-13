@@ -8,11 +8,12 @@ const InnerStyles = styled.div`
   padding: 2rem;
 `;
 
-export default function Page({ children }) {
+export default function Page({ cool, children }) {
   return (
     <div>
       <Header />
       <InnerStyles>{children}</InnerStyles>
+      <InnerStyles>{cool}</InnerStyles>
     </div>
   );
 }
