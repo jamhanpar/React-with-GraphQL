@@ -1,8 +1,8 @@
-import React from "react";
-import Link from "next/link";
+import React from 'react';
+import Link from 'next/link';
 import NavStyles from './styles/NavStyles';
 
-const Nav = (props) => {
+export default function Nav() {
   return (
     <NavStyles>
       <Link href="/products">Products</Link>
@@ -11,6 +11,4 @@ const Nav = (props) => {
       <Link href="/account">Account</Link>
     </NavStyles>
   );
-};
-
-export default Nav;
+}

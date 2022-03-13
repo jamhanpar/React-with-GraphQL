@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import Nav from './Nav';
 import styled from 'styled-components';
+import Nav from './Nav';
 
 const LogoStyles = styled.h1`
   font-size: 4rem;
@@ -30,12 +30,12 @@ const HeaderStyles = styled.header`
 
   .sub-bar {
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: 1fr auto;
     border-bottom: 1px solid var(--black, black);
   }
 `;
 
-const Header = () => {
+export default function Header() {
   return (
     <HeaderStyles>
       <div className="bar">
@@ -49,6 +49,4 @@ const Header = () => {
       </div>
     </HeaderStyles>
   );
-};
-
-export default Header;
+}
